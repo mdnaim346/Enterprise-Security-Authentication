@@ -1,0 +1,61 @@
+<odoo>
+    <menuitem
+        id="menu_enterprise_security_authentication_root"
+        name="Enterprise Security"
+        sequence="30"
+        groups="enterprise_security_authentication.group_security_user,base.group_system"/>
+
+    <menuitem
+        id="menu_enterprise_security_monitoring"
+        name="Monitoring"
+        parent="menu_enterprise_security_authentication_root"
+        sequence="10"
+        groups="enterprise_security_authentication.group_security_user,base.group_system"/>
+
+    <menuitem
+        id="menu_auth_user_session"
+        name="Active Sessions"
+        parent="menu_enterprise_security_monitoring"
+        action="action_auth_user_session"
+        sequence="10"
+        groups="enterprise_security_authentication.group_security_user,base.group_system"/>
+
+    <menuitem
+        id="menu_auth_login_attempt"
+        name="Login Attempts"
+        parent="menu_enterprise_security_monitoring"
+        action="action_auth_login_attempt"
+        sequence="20"
+        groups="enterprise_security_authentication.group_security_user,base.group_system"/>
+
+    <menuitem
+        id="menu_auth_audit_log"
+        name="Audit Logs"
+        parent="menu_enterprise_security_monitoring"
+        action="action_auth_audit_log"
+        sequence="30"
+        groups="enterprise_security_authentication.group_security_user,base.group_system"/>
+
+    <menuitem
+        id="menu_enterprise_security_configuration"
+        name="Configuration"
+        parent="menu_enterprise_security_authentication_root"
+        sequence="20"
+        groups="enterprise_security_authentication.group_security_manager,base.group_system"/>
+
+    <menuitem
+        id="menu_auth_security_config"
+        name="Security Policies"
+        parent="menu_enterprise_security_configuration"
+        action="action_auth_security_config"
+        sequence="10"
+        groups="enterprise_security_authentication.group_security_manager,base.group_system"/>
+
+    <menuitem
+        id="menu_auth_otp_code"
+        name="OTP Codes"
+        parent="menu_enterprise_security_configuration"
+        action="action_auth_otp_code"
+        sequence="20"
+        groups="enterprise_security_authentication.group_security_manager,base.group_system"/>
+</odoo>

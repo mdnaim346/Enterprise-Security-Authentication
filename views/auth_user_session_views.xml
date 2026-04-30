@@ -1,0 +1,78 @@
+<odoo>
+    <record id="view_auth_user_session_tree" model="ir.ui.view">
+        <field name="name">auth.user.session.tree</field>
+        <field name="model">auth.user.session</field>
+        <field name="arch" type="xml">
+            <tree create="0">
+                <field name="active"/>
+                <field name="user_id"/>
+                <field name="device_name"/>
+                <field name="ip_address"/>
+                <field name="location"/>
+                <field name="login_at"/>
+                <field name="last_activity_at"/>
+                <field name="logout_at"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_auth_user_session_form" model="ir.ui.view">
+        <field name="name">auth.user.session.form</field>
+        <field name="model">auth.user.session</field>
+        <field name="arch" type="xml">
+            <form create="0">
+                <header>
+                    <button name="action_terminate" type="object" string="Terminate" class="btn-primary" invisible="not active"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="active"/>
+                        <field name="user_id"/>
+                        <field name="company_id"/>
+                        <field name="session_token"/>
+                        <field name="device_name"/>
+                    </group>
+                    <group string="Request">
+                        <field name="ip_address"/>
+                        <field name="location"/>
+                        <field name="user_agent"/>
+                    </group>
+                    <group string="Timeline">
+                        <field name="login_at"/>
+                        <field name="last_activity_at"/>
+                        <field name="logout_at"/>
+                        <field name="terminated_by_id"/>
+                        <field name="termination_reason"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_auth_user_session_search" model="ir.ui.view">
+        <field name="name">auth.user.session.search</field>
+        <field name="model">auth.user.session</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="user_id"/>
+                <field name="ip_address"/>
+                <field name="device_name"/>
+                <filter name="active_sessions" string="Active" domain="[('active', '=', True)]"/>
+                <filter name="closed_sessions" string="Closed" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_user" string="User" context="{'group_by': 'user_id'}"/>
+                    <filter name="group_by_active" string="Status" context="{'group_by': 'active'}"/>
+                    <filter name="group_by_ip" string="IP Address" context="{'group_by': 'ip_address'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_auth_user_session" model="ir.actions.act_window">
+        <field name="name">User Sessions</field>
+        <field name="res_model">auth.user.session</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_auth_user_session_search"/>
+        <field name="context">{'search_default_active_sessions': 1}</field>
+    </record>
+</odoo>

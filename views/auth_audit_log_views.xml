@@ -1,0 +1,75 @@
+<odoo>
+    <record id="view_auth_audit_log_tree" model="ir.ui.view">
+        <field name="name">auth.audit.log.tree</field>
+        <field name="model">auth.audit.log</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0">
+                <field name="event_at"/>
+                <field name="severity"/>
+                <field name="event_type"/>
+                <field name="user_id"/>
+                <field name="actor_id"/>
+                <field name="ip_address"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_auth_audit_log_form" model="ir.ui.view">
+        <field name="name">auth.audit.log.form</field>
+        <field name="model">auth.audit.log</field>
+        <field name="arch" type="xml">
+            <form create="0" edit="0">
+                <sheet>
+                    <group>
+                        <field name="event_at"/>
+                        <field name="severity"/>
+                        <field name="event_type"/>
+                        <field name="user_id"/>
+                        <field name="actor_id"/>
+                        <field name="company_id"/>
+                    </group>
+                    <group string="Request">
+                        <field name="ip_address"/>
+                        <field name="user_agent"/>
+                    </group>
+                    <group string="Related Record">
+                        <field name="model_name"/>
+                        <field name="record_id"/>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                        <field name="metadata"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_auth_audit_log_search" model="ir.ui.view">
+        <field name="name">auth.audit.log.search</field>
+        <field name="model">auth.audit.log</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="event_type"/>
+                <field name="user_id"/>
+                <field name="actor_id"/>
+                <field name="ip_address"/>
+                <filter name="warning" string="Warnings" domain="[('severity', '=', 'warning')]"/>
+                <filter name="critical" string="Critical" domain="[('severity', '=', 'critical')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_event_type" string="Event Type" context="{'group_by': 'event_type'}"/>
+                    <filter name="group_by_severity" string="Severity" context="{'group_by': 'severity'}"/>
+                    <filter name="group_by_user" string="Affected User" context="{'group_by': 'user_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_auth_audit_log" model="ir.actions.act_window">
+        <field name="name">Audit Logs</field>
+        <field name="res_model">auth.audit.log</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_auth_audit_log_search"/>
+    </record>
+</odoo>

@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_auth_login_attempt_user,auth.login.attempt.user,model_auth_login_attempt,enterprise_security_authentication.group_security_user,1,0,0,0
+access_auth_login_attempt_manager,auth.login.attempt.manager,model_auth_login_attempt,enterprise_security_authentication.group_security_manager,1,1,1,1
+access_auth_login_attempt_system,auth.login.attempt.system,model_auth_login_attempt,base.group_system,1,1,1,1
+access_auth_user_session_user,auth.user.session.user,model_auth_user_session,enterprise_security_authentication.group_security_user,1,1,0,0
+access_auth_user_session_manager,auth.user.session.manager,model_auth_user_session,enterprise_security_authentication.group_security_manager,1,1,1,1
+access_auth_user_session_system,auth.user.session.system,model_auth_user_session,base.group_system,1,1,1,1
+access_auth_audit_log_user,auth.audit.log.user,model_auth_audit_log,enterprise_security_authentication.group_security_user,1,0,0,0
+access_auth_audit_log_manager,auth.audit.log.manager,model_auth_audit_log,enterprise_security_authentication.group_security_manager,1,1,1,0
+access_auth_audit_log_system,auth.audit.log.system,model_auth_audit_log,base.group_system,1,1,1,1
+access_auth_security_config_manager,auth.security.config.manager,model_auth_security_config,enterprise_security_authentication.group_security_manager,1,1,1,1
+access_auth_security_config_system,auth.security.config.system,model_auth_security_config,base.group_system,1,1,1,1
+access_auth_otp_code_manager,auth.otp.code.manager,model_auth_otp_code,enterprise_security_authentication.group_security_manager,1,1,1,1
+access_auth_otp_code_system,auth.otp.code.system,model_auth_otp_code,base.group_system,1,1,1,1

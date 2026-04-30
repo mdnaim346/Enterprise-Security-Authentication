@@ -1,0 +1,79 @@
+<odoo>
+    <record id="view_auth_security_config_tree" model="ir.ui.view">
+        <field name="name">auth.security.config.tree</field>
+        <field name="model">auth.security.config</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="company_id"/>
+                <field name="active"/>
+                <field name="max_failed_attempts"/>
+                <field name="lock_duration_minutes"/>
+                <field name="session_timeout_minutes"/>
+                <field name="enable_email_otp"/>
+                <field name="enable_totp"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_auth_security_config_form" model="ir.ui.view">
+        <field name="name">auth.security.config.form</field>
+        <field name="model">auth.security.config</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="company_id"/>
+                        <field name="active"/>
+                    </group>
+                    <notebook>
+                        <page string="Login">
+                            <group>
+                                <field name="enable_login_attempt_tracking"/>
+                                <field name="enable_account_lock"/>
+                                <field name="max_failed_attempts"/>
+                                <field name="lock_duration_minutes"/>
+                                <field name="send_login_notification"/>
+                            </group>
+                        </page>
+                        <page string="Sessions">
+                            <group>
+                                <field name="enable_session_tracking"/>
+                                <field name="session_timeout_minutes"/>
+                                <field name="session_cleanup_days"/>
+                                <field name="track_user_activity"/>
+                            </group>
+                        </page>
+                        <page string="IP Restrictions">
+                            <group>
+                                <field name="enable_ip_restriction"/>
+                                <field name="allowed_ip_addresses" placeholder="192.168.1.10"/>
+                            </group>
+                        </page>
+                        <page string="Two-Factor Authentication">
+                            <group>
+                                <field name="enable_email_otp"/>
+                                <field name="enable_totp"/>
+                                <field name="otp_expiration_minutes"/>
+                                <field name="otp_max_attempts"/>
+                            </group>
+                        </page>
+                        <page string="Audit">
+                            <group>
+                                <field name="audit_password_reset"/>
+                                <field name="audit_retention_days"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_auth_security_config" model="ir.actions.act_window">
+        <field name="name">Security Policies</field>
+        <field name="res_model">auth.security.config</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

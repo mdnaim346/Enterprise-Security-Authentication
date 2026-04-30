@@ -1,0 +1,74 @@
+<odoo>
+    <record id="view_auth_otp_code_tree" model="ir.ui.view">
+        <field name="name">auth.otp.code.tree</field>
+        <field name="model">auth.otp.code</field>
+        <field name="arch" type="xml">
+            <tree create="0">
+                <field name="user_id"/>
+                <field name="purpose"/>
+                <field name="delivery_channel"/>
+                <field name="expires_at"/>
+                <field name="used_at"/>
+                <field name="attempts"/>
+                <field name="is_valid"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_auth_otp_code_form" model="ir.ui.view">
+        <field name="name">auth.otp.code.form</field>
+        <field name="model">auth.otp.code</field>
+        <field name="arch" type="xml">
+            <form create="0">
+                <header>
+                    <button name="action_mark_used" type="object" string="Mark Used" class="btn-primary" invisible="used_at"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="user_id"/>
+                        <field name="company_id"/>
+                        <field name="purpose"/>
+                        <field name="delivery_channel"/>
+                        <field name="code_hash"/>
+                        <field name="is_valid"/>
+                    </group>
+                    <group string="Lifecycle">
+                        <field name="expires_at"/>
+                        <field name="used_at"/>
+                        <field name="attempts"/>
+                    </group>
+                    <group string="Request">
+                        <field name="ip_address"/>
+                        <field name="user_agent"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_auth_otp_code_search" model="ir.ui.view">
+        <field name="name">auth.otp.code.search</field>
+        <field name="model">auth.otp.code</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="user_id"/>
+                <field name="purpose"/>
+                <field name="delivery_channel"/>
+                <filter name="unused" string="Unused" domain="[('used_at', '=', False)]"/>
+                <filter name="used" string="Used" domain="[('used_at', '!=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_user" string="User" context="{'group_by': 'user_id'}"/>
+                    <filter name="group_by_purpose" string="Purpose" context="{'group_by': 'purpose'}"/>
+                    <filter name="group_by_channel" string="Channel" context="{'group_by': 'delivery_channel'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_auth_otp_code" model="ir.actions.act_window">
+        <field name="name">OTP Codes</field>
+        <field name="res_model">auth.otp.code</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_auth_otp_code_search"/>
+    </record>
+</odoo>

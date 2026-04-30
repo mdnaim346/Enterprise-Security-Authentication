@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="mail_template_security_login_notification" model="mail.template">
+            <field name="name">Security: Login Notification</field>
+            <field name="model_id" ref="base.model_res_users"/>
+            <field name="subject">New login to your Odoo account</field>
+            <field name="email_from">{{ (object.company_id.email_formatted or user.email_formatted) }}</field>
+            <field name="email_to">{{ object.email_formatted }}</field>
+            <field name="lang">{{ object.partner_id.lang }}</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px; font-size: 13px;">
+    <p>Dear <t t-out="object.partner_id.name or object.name or ''"/>,</p>
+    <p>A new login was detected on your Odoo account.</p>
+    <ul>
+        <li>IP address: <t t-out="ctx.get('ip_address') or 'N/A'"/></li>
+        <li>Device: <t t-out="ctx.get('device_name') or 'N/A'"/></li>
+        <li>Location: <t t-out="ctx.get('location') or 'N/A'"/></li>
+        <li>Login time: <t t-out="ctx.get('login_at') or 'N/A'"/></li>
+    </ul>
+    <p>If this was not you, please contact your Odoo administrator immediately.</p>
+</div>
+            </field>
+        </record>
+
+        <record id="mail_template_security_email_otp" model="mail.template">
+            <field name="name">Security: Email OTP Code</field>
+            <field name="model_id" ref="base.model_res_users"/>
+            <field name="subject">Your Odoo security verification code</field>
+            <field name="email_from">{{ (object.company_id.email_formatted or user.email_formatted) }}</field>
+            <field name="email_to">{{ object.email_formatted }}</field>
+            <field name="lang">{{ object.partner_id.lang }}</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px; font-size: 13px;">
+    <p>Dear <t t-out="object.partner_id.name or object.name or ''"/>,</p>
+    <p>Use this code to complete your Odoo security verification:</p>
+    <div style="margin: 16px 0px; text-align: center;">
+        <span style="background-color:#f7f7f7; border: 1px solid #d8dadd; padding: 8px 16px; font-size: 24px; letter-spacing: 3px;">
+            <t t-out="ctx.get('otp_code') or '000000'"/>
+        </span>
+    </div>
+    <p>This code expires in <t t-out="ctx.get('expiration_minutes') or 10"/> minutes.</p>
+    <p>If you did not request this code, please ignore this email and contact your Odoo administrator.</p>
+</div>
+            </field>
+        </record>
+    </data>
+</odoo>

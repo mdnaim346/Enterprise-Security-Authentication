@@ -1,0 +1,67 @@
+<odoo>
+    <record id="view_auth_login_attempt_tree" model="ir.ui.view">
+        <field name="name">auth.login.attempt.tree</field>
+        <field name="model">auth.login.attempt</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0">
+                <field name="attempted_at"/>
+                <field name="login"/>
+                <field name="user_id"/>
+                <field name="ip_address"/>
+                <field name="success"/>
+                <field name="failure_reason"/>
+                <field name="locked_until"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_auth_login_attempt_form" model="ir.ui.view">
+        <field name="name">auth.login.attempt.form</field>
+        <field name="model">auth.login.attempt</field>
+        <field name="arch" type="xml">
+            <form create="0" edit="0">
+                <sheet>
+                    <group>
+                        <field name="attempted_at"/>
+                        <field name="login"/>
+                        <field name="user_id"/>
+                        <field name="company_id"/>
+                        <field name="success"/>
+                        <field name="failure_reason"/>
+                        <field name="locked_until"/>
+                    </group>
+                    <group string="Request">
+                        <field name="ip_address"/>
+                        <field name="user_agent"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_auth_login_attempt_search" model="ir.ui.view">
+        <field name="name">auth.login.attempt.search</field>
+        <field name="model">auth.login.attempt</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="login"/>
+                <field name="user_id"/>
+                <field name="ip_address"/>
+                <filter name="successful" string="Successful" domain="[('success', '=', True)]"/>
+                <filter name="failed" string="Failed" domain="[('success', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_user" string="User" context="{'group_by': 'user_id'}"/>
+                    <filter name="group_by_ip" string="IP Address" context="{'group_by': 'ip_address'}"/>
+                    <filter name="group_by_success" string="Result" context="{'group_by': 'success'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_auth_login_attempt" model="ir.actions.act_window">
+        <field name="name">Login Attempts</field>
+        <field name="res_model">auth.login.attempt</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_auth_login_attempt_search"/>
+    </record>
+</odoo>
