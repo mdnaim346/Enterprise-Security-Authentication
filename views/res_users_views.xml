@@ -1,0 +1,22 @@
+<odoo>
+    <record id="view_users_form_enterprise_security_authentication" model="ir.ui.view">
+        <field name="name">res.users.form.enterprise.security.authentication</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Security" groups="enterprise_security_authentication.group_security_manager,base.group_system">
+                    <group string="Authentication Security">
+                        <field name="esa_locked_until" readonly="1"/>
+                        <button
+                            name="action_esa_unlock_account"
+                            type="object"
+                            string="Unlock Account"
+                            class="btn-secondary"
+                            invisible="not esa_locked_until"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

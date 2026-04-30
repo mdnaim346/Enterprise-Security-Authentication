@@ -1,0 +1,180 @@
+.o_form_view .o_esa_test_console {
+    .o_form_sheet_bg {
+        background: #f5f7fb;
+    }
+
+    .o_form_sheet {
+        max-width: 1180px;
+        border-radius: 8px;
+    }
+
+    .o_esa_console_header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 24px;
+        margin: 12px 0 18px;
+        padding: 18px 20px;
+        border: 1px solid #d8dee9;
+        border-left: 5px solid #2563eb;
+        border-radius: 8px;
+        background: #ffffff;
+
+        h1 {
+            margin: 4px 0 8px;
+            font-size: 28px;
+            line-height: 1.15;
+            font-weight: 650;
+            color: #111827;
+        }
+    }
+
+    .o_esa_kicker {
+        color: #64748b;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0;
+        text-transform: uppercase;
+    }
+
+    .o_esa_policy_row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        color: #475569;
+
+        .o_field_widget {
+            font-weight: 650;
+            color: #0f172a;
+        }
+    }
+
+    .o_esa_lock_badge {
+        min-width: 190px;
+        padding: 12px 14px;
+        border: 1px solid #fecaca;
+        border-radius: 8px;
+        background: #fff1f2;
+        color: #991b1b;
+
+        span {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0;
+        }
+
+        .o_field_widget,
+        strong {
+            font-size: 15px;
+            color: #7f1d1d;
+        }
+    }
+
+    .o_esa_lock_badge_clear {
+        border-color: #bbf7d0;
+        background: #f0fdf4;
+        color: #166534;
+
+        .o_field_widget,
+        strong {
+            color: #166534;
+        }
+    }
+
+    .o_esa_metric_grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+        margin: 0 0 18px;
+    }
+
+    .o_esa_metric_tile {
+        min-height: 96px;
+        padding: 14px 16px;
+        border: 1px solid #d8dee9;
+        border-left: 5px solid #64748b;
+        border-radius: 8px;
+        background: #ffffff;
+
+        span {
+            display: block;
+            margin-bottom: 8px;
+            color: #64748b;
+            font-size: 13px;
+            font-weight: 650;
+        }
+
+        .o_field_widget {
+            font-size: 30px;
+            line-height: 1;
+            font-weight: 700;
+            color: #111827;
+        }
+    }
+
+    .o_esa_tile_total {
+        border-left-color: #2563eb;
+    }
+
+    .o_esa_tile_warning {
+        border-left-color: #d97706;
+    }
+
+    .o_esa_tile_success {
+        border-left-color: #059669;
+    }
+
+    .o_esa_tile_danger {
+        border-left-color: #dc2626;
+    }
+
+    .o_esa_scenario_panel {
+        margin-top: 8px;
+        padding: 14px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        background: #ffffff;
+    }
+
+    .o_esa_action_grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        margin: 18px 0;
+
+        .btn {
+            min-height: 42px;
+            justify-content: center;
+            white-space: normal;
+        }
+    }
+
+    .o_esa_latest_signal {
+        padding: 12px 14px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        background: #fbfdff;
+    }
+
+    @media (max-width: 992px) {
+        .o_esa_console_header {
+            flex-direction: column;
+        }
+
+        .o_esa_metric_grid,
+        .o_esa_action_grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 576px) {
+        .o_esa_metric_grid,
+        .o_esa_action_grid {
+            grid-template-columns: 1fr;
+        }
+    }
+}

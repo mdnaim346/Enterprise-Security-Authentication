@@ -1,10 +1,10 @@
 {
     "name": "Enterprise Security Authentication",
-    "version": "17.0.1.0.0",
+    "version": "17.0.1.2.0",
     "category": "Technical/Security",
     "summary": "Advanced authentication security, session tracking, and audit controls.",
     "author": "Naim Reza",
-    "depends": ["base", "mail"],
+    "depends": ["base", "mail", "web"],
     "data": [
         "security/security.xml",
         "security/ir.model.access.csv",
@@ -17,8 +17,14 @@
         "views/auth_audit_log_views.xml",
         "views/auth_otp_code_views.xml",
         "views/auth_security_test_wizard_views.xml",
+        "views/res_users_views.xml",
         "views/menu.xml",
     ],
+    "assets": {
+        "web.assets_backend": [
+            "enterprise_security_authentication/static/src/scss/security_test_console.scss",
+        ],
+    },
     "installable": True,
     "application": True,
     "license": "LGPL-3",

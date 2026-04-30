@@ -27,7 +27,7 @@ class AuthSecurityConfig(models.Model):
 
     enable_ip_restriction = fields.Boolean(default=False)
     allowed_ip_addresses = fields.Text(
-        help="Add one IPv4 or IPv6 address per line. Leave empty to allow all IPs."
+        help="Add one IPv4/IPv6 address or CIDR range per line. Leave empty to allow all IPs."
     )
 
     enable_email_otp = fields.Boolean(default=False)
