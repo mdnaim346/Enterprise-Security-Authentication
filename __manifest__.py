@@ -16,6 +16,7 @@
         "views/auth_user_session_views.xml",
         "views/auth_audit_log_views.xml",
         "views/auth_otp_code_views.xml",
+        "views/auth_security_test_wizard_views.xml",
         "views/menu.xml",
     ],
     "installable": True,

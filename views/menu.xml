@@ -58,4 +58,12 @@
         action="action_auth_otp_code"
         sequence="20"
         groups="enterprise_security_authentication.group_security_manager,base.group_system"/>
+
+    <menuitem
+        id="menu_auth_security_test_wizard"
+        name="Security Test Console"
+        parent="menu_enterprise_security_configuration"
+        action="action_auth_security_test_wizard"
+        sequence="30"
+        groups="enterprise_security_authentication.group_security_manager,base.group_system"/>
 </odoo>

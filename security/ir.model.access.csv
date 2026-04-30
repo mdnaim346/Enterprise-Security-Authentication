@@ -12,3 +12,5 @@ access_auth_security_config_manager,auth.security.config.manager,model_auth_secu
 access_auth_security_config_system,auth.security.config.system,model_auth_security_config,base.group_system,1,1,1,1
 access_auth_otp_code_manager,auth.otp.code.manager,model_auth_otp_code,enterprise_security_authentication.group_security_manager,1,1,1,1
 access_auth_otp_code_system,auth.otp.code.system,model_auth_otp_code,base.group_system,1,1,1,1
+access_auth_security_test_wizard_manager,auth.security.test.wizard.manager,model_auth_security_test_wizard,enterprise_security_authentication.group_security_manager,1,1,1,1
+access_auth_security_test_wizard_system,auth.security.test.wizard.system,model_auth_security_test_wizard,base.group_system,1,1,1,1

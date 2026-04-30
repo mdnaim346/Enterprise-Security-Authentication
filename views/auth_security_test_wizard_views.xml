@@ -1,0 +1,49 @@
+<odoo>
+    <record id="view_auth_security_test_wizard_form" model="ir.ui.view">
+        <field name="name">auth.security.test.wizard.form</field>
+        <field name="model">auth.security.test.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Security Test Console">
+                <sheet>
+                    <group>
+                        <group string="User">
+                            <field name="user_id"/>
+                            <field name="login"/>
+                            <field name="failed_attempt_count"/>
+                            <field name="mark_locked"/>
+                            <field name="otp_code" password="True"/>
+                        </group>
+                        <group string="Request">
+                            <field name="ip_address"/>
+                            <field name="device_name"/>
+                            <field name="location"/>
+                            <field name="user_agent"/>
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1"/>
+                    </group>
+                    <group string="Generate Records">
+                        <button name="action_generate_all" type="object" string="Generate Full Dataset" class="btn-primary"/>
+                        <button name="action_generate_failed_attempts" type="object" string="Failed Attempts"/>
+                        <button name="action_generate_successful_login" type="object" string="Successful Login"/>
+                        <button name="action_create_active_session" type="object" string="Active Session"/>
+                        <button name="action_create_audit_logs" type="object" string="Audit Events"/>
+                        <button name="action_create_otp_code" type="object" string="Email OTP"/>
+                    </group>
+                    <group string="Cleanup">
+                        <button name="action_clear_test_data" type="object" string="Clear Generated Test Data" confirm="Remove generated test records for this user and IP?"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_auth_security_test_wizard" model="ir.actions.act_window">
+        <field name="name">Security Test Console</field>
+        <field name="res_model">auth.security.test.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_auth_security_test_wizard_form"/>
+        <field name="target">current</field>
+    </record>
+</odoo>
