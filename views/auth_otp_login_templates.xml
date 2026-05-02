@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="esa_otp_login_form" name="Email OTP Login Verification">
+        <t t-call="web.login_layout">
+            <t t-set="disable_footer">1</t>
+            <div class="oe_login_form">
+                <h5 class="card-title">Email Verification</h5>
+                <form method="POST" action="">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <input type="hidden" name="redirect" t-att-value="redirect"/>
+                    <div class="mb-2 mt-2 text-muted">
+                        Enter the six-digit code sent to <strong><t t-out="user.email"/></strong>.
+                        <br/>
+                        The code expires in <t t-out="expiration_minutes"/> minutes.
+                    </div>
+                    <div class="mb-3">
+                        <label class="fw-bold" for="otp_code">Verification Code</label>
+                        <input id="otp_code"
+                               name="otp_code"
+                               class="form-control mb-2"
+                               autocomplete="one-time-code"
+                               inputmode="numeric"
+                               autofocus="autofocus"
+                               required="required"
+                               maxlength="6"
+                               placeholder="123456"/>
+                    </div>
+                    <p class="alert alert-danger" t-if="error" role="alert">
+                        <t t-out="error"/>
+                    </p>
+                    <p class="alert alert-success" t-if="message" role="status">
+                        <t t-out="message"/>
+                    </p>
+                    <div class="clearfix oe_login_buttons text-center d-grid mb-1">
+                        <button type="submit" class="btn btn-primary">Verify and log in</button>
+                    </div>
+                </form>
+
+                <form method="POST" action="" class="text-center mt-2">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <input type="hidden" name="redirect" t-att-value="redirect"/>
+                    <input type="hidden" name="send_email" value="1"/>
+                    <button type="submit" class="btn btn-link btn-sm">Send a new code</button>
+                </form>
+
+                <form method="POST" action="/web/session/logout" class="text-center">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <input type="hidden" name="redirect" value="/web/login"/>
+                    <button type="submit" class="btn btn-link btn-sm mb-2">Cancel</button>
+                </form>
+            </div>
+        </t>
+    </template>
+</odoo>

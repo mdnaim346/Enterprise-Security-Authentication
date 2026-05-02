@@ -11,6 +11,7 @@
         "data/security_config_data.xml",
         "data/mail_template_data.xml",
         "data/cron.xml",
+        "views/auth_otp_login_templates.xml",
         "views/auth_security_config_views.xml",
         "views/auth_login_attempt_views.xml",
         "views/auth_user_session_views.xml",

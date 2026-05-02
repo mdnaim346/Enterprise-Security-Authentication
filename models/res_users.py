@@ -16,6 +16,25 @@ class ResUsers(models.Model):
 
     esa_locked_until = fields.Datetime(string="Security Lock Until", copy=False, readonly=True)
 
+    def _esa_requires_email_otp(self, config=None):
+        self.ensure_one()
+        config = config or self.env["auth.security.config"].sudo().get_active_config()
+        return bool(config and config.enable_email_otp)
+
+    def _mfa_type(self):
+        result = super()._mfa_type()
+        if result is not None:
+            return result
+        if request and self._esa_requires_email_otp():
+            return "esa_email_otp"
+
+    def _mfa_url(self):
+        result = super()._mfa_url()
+        if result is not None:
+            return result
+        if self._mfa_type() == "esa_email_otp":
+            return "/web/login/esa_otp"
+
     @classmethod
     def _login(cls, db, login, password, user_agent_env):
         cls._esa_precheck_login(db, login, user_agent_env)
@@ -196,6 +215,7 @@ class ResUsers(models.Model):
 
     @classmethod
     def _esa_record_login_success(cls, db, uid, login, user_agent_env):
+        user_agent_env = user_agent_env or {}
         with registry(db).cursor() as cr:
             env = api.Environment(cr, SUPERUSER_ID, {})
             users = env[cls._name].sudo()
@@ -205,6 +225,8 @@ class ResUsers(models.Model):
 
             user = users.browse(uid)
             request_values = users._esa_request_values(user_agent_env)
+            if user_agent_env.get("interactive", True) and user._esa_requires_email_otp(config):
+                return
             if user.esa_locked_until:
                 user.write({"esa_locked_until": False})
             users._esa_create_login_attempt(config, login, user, True, request_values)
@@ -245,6 +267,27 @@ class ResUsers(models.Model):
                 "locked_until": locked_until,
             }
         )
+
+    @api.model
+    def _esa_record_mfa_login_success(self, user, login, request_values, config=None):
+        config = config or self.env["auth.security.config"].sudo().get_active_config()
+        if not config:
+            return
+
+        user = user.sudo()
+        if user.esa_locked_until:
+            user.write({"esa_locked_until": False})
+
+        self._esa_create_login_attempt(config, login, user, True, request_values)
+        if config.track_user_activity:
+            self.env["auth.audit.log"].log_event(
+                "login_success",
+                user=user,
+                severity="info",
+                description=_("User authenticated successfully"),
+                ip_address=request_values.get("ip_address"),
+                user_agent=request_values.get("user_agent"),
+            )
 
     @api.model
     def _esa_recent_failed_attempt_count(self, user, login, config, now):
